@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # project26
 
 ## Team Members:
@@ -26,6 +25,5 @@
 
 ## What commands are needed to compile and run your code from the command line?
 # project26
-=======
+
 # project26
->>>>>>> origin/accountDeposit
