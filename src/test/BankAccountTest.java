@@ -16,7 +16,10 @@ public class BankAccountTest {
         assertEquals(50, testAccount.getBalance(), 0.01);
     }
 
+<<<<<<< HEAD
     @Test
+=======
+>>>>>>> origin/accountDeposit
     public void testInvalidDeposit() {
         BankAccount testAccount = new BankAccount();
         try {
