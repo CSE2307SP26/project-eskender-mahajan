@@ -1,3 +1,5 @@
+package main;
+import java.util.ArrayList;
 public class Customer{
     private ArrayList<BankAccount> accounts;
 
@@ -10,6 +12,6 @@ public class Customer{
     }
 
     public void createBankAccount(){
-        accounts.add(new BankAccount());
+        accounts.add(new BankAccount(0.0));
     }
 }

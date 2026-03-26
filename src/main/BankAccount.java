@@ -3,7 +3,7 @@ public class BankAccount {
     private double balance;
 
     public BankAccount(double startingBalance) {
-        this.balance = startingBalance;
+        this.balance = 0.0;
     }
 
     public double getBalance() {

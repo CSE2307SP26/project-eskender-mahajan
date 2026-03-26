@@ -1,29 +1,47 @@
 package test;
-
-import main.BankAccount;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
-
     @Test
-    public void testDeposit() {
-        BankAccount testAccount = new BankAccount();
-        testAccount.deposit(50);
-        assertEquals(50, testAccount.getBalance(), 0.01);
+    void startingBalance() {
+        BankAccount account = new BankAccount(200);
+        assertEquals(200, account.getBalance());
     }
 
     @Test
-    public void testInvalidDeposit() {
-        BankAccount testAccount = new BankAccount();
-        try {
-            testAccount.deposit(-50);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing, test passes
-        }
+    void withdrawValidAmount() {
+        BankAccount account = new BankAccount(200);
+        account.withdraw(50);
+        assertEquals(150, account.getBalance());
+    }
+
+    @Test
+    void multipleWithdrawals() {
+        BankAccount account = new BankAccount(200);
+        account.withdraw(40);
+        account.withdraw(50);
+        assertEquals(110, account.getBalance());
+    }
+
+    @Test
+    void withdrawTooMuch() {
+        BankAccount account = new BankAccount(300);
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.withdraw(400);
+        });
+    }
+
+    @Test
+    void invalidWithdrawalAmount() {
+        BankAccount account = new BankAccount(200);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.withdraw(-50);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.withdraw(0);
+        });
     }
 }
