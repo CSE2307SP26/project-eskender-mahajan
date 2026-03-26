@@ -83,8 +83,7 @@ public class MainMenu {
     }
     public void makeAnotherAccount() {
         System.out.println("Created a new account with a starting balance of $0.00!");
-        double startingBalance = 0.0;
-        customer.createBankAccount(startingBalance);
+        customer.createBankAccount();
     }
     public void run() {
         int selection = -1;
