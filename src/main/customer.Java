@@ -1,5 +1,6 @@
 public class Customer{
     private ArrayList<BankAccount> accounts;
+    private ArrayList<TransactionHistory> transactionhistory;
 
     public Customer(){
         accounts = new ArrayList<>();

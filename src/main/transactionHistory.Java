@@ -1,7 +1,7 @@
 public class TransactionHistory{
 
    private BankAccount account;
-   ArrayList<Double> transactionHistory = new ArrayList<>();
+   ArrayList<Double> TransactionHistory = new ArrayList<>();
 
    public TransactionHistory(BankAccount account){
     this.account = account;
