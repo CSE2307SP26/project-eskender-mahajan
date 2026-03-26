@@ -27,6 +27,7 @@ The creating additional account does not currently work.
 ## What commands are needed to compile and run your code from the command line?
 !/bin/bash
 javac -d out src/main/*.java
+
 java -cp out main.MainMenu 
 # project26
 

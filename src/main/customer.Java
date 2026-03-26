@@ -12,6 +12,9 @@ public class Customer{
     }
 
     public void createBankAccount(){
-        accounts.add(new BankAccount(0.0));
+        accounts.add(new BankAccount());
+    }
+    public void createBankAccount(double startingBalance){
+        accounts.add(new BankAccount(startingBalance));
     }
 }
