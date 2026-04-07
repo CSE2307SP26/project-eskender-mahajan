@@ -1,9 +1,15 @@
 package main;
+
+import java.util.ArrayList;
+
 public class BankAccount {
     private double balance;
+    private ArrayList<Double> transactionHistory;
+    
 
     public BankAccount(double startingBalance) {
-        this.balance = 0.0;
+        this.balance = startingBalance;
+        this.transactionHistory = new ArrayList<>();
     }
 
     public double getBalance() {
@@ -14,6 +20,7 @@ public class BankAccount {
             throw new IllegalArgumentException("Deposit can not be negative");
         }
         balance+= amount;
+        transactionHistory.add(amount);
     }
 
     public void withdraw(double amount) {
@@ -26,5 +33,9 @@ public class BankAccount {
         }
 
         balance -= amount;
+        transactionHistory.add(-amount);
+    }
+    public ArrayList<Double> returnTransactionHistory(){
+        return transactionHistory;
     }
 }

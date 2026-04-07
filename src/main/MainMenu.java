@@ -1,45 +1,75 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 5;
-	private static final int MAX_SELECTION = 5;
+    private static final int EXIT_SELECTION = 6;
+	private static final int MAX_SELECTION = 6;
 
 	private BankAccount userAccount;
-    private TransactionHistory transactionHistory;
     private Customer customer;
     private Scanner keyboardInput;
+    private boolean introMenu;
 
     public MainMenu() {
-        this.userAccount = new BankAccount(0.0);
-        this.transactionHistory = new TransactionHistory(userAccount);
+        
         this.keyboardInput = new Scanner(System.in);
-        this.customer = new Customer();
+        this.userAccount = null;
+        this.customer = null; 
+        this.introMenu = false;
+    }
+    public void run() {
+        while(true){
+            if(!introMenu) {
+                displayInitialOptions();
+                int selection = getUserSelection(2);
+                processInitialInput(selection);
+            }
+            else {
+                displayAccountOptions();
+                int selection = getUserSelection(MAX_SELECTION);
+                processAccountInput(selection);
+                if(selection == EXIT_SELECTION) {
+                    break;
+                }
+            }
+        }
     }
 
-    public void displayOptions() {
+    public void displayInitialOptions() {
         System.out.println("Welcome to the 237 Bank App!");
+        System.out.println("1. Create an account");
+
+    }
+    public void processInitialInput(int selection) {
+        switch (selection) {
+            case 1:
+                createAccount();
+                break;
+        }
+    }
+    public void createAccount() {
+        System.out.print("Enter your name: ");
+        String name = keyboardInput.next();
+        customer = new Customer(name);
+        userAccount = customer.getAccounts().get(0);
+        introMenu = true;
+    }
+
+    public void displayAccountOptions() {
+        System.out.println("Welcome to your account, " + customer.getName() + "!");
         
         System.out.println("1. Make a deposit");
         System.out.println("2. Make a withdrawal");
         System.out.println("3. View transaction history");
         System.out.println("4. Make another account");
-        System.out.println("5. Exit the app");
+        System.out.println("5. Switch accounts");
+        System.out.println("6. Exit the app");
 
     }
-
-    public int getUserSelection(int max) {
-        int selection = -1;
-        while(selection < 1 || selection > max) {
-            System.out.print("Please make a selection: ");
-            selection = keyboardInput.nextInt();
-        }
-        return selection;
-    }
-
-    public void processInput(int selection) {
+    public void processAccountInput(int selection) {
         switch (selection) {
             case 1:
                 performDeposit();
@@ -54,9 +84,21 @@ public class MainMenu {
                 makeAnotherAccount();
                 break;
             case 5:
+                switchToAnotherAccount();
+                break;
+            case 6:
                 System.out.println("Thank you!");
                 break;
         }
+    }
+
+    public int getUserSelection(int max) {
+        int selection = -1;
+        while(selection < 1 || selection > max) {
+            System.out.print("Please make a selection: ");
+            selection = keyboardInput.nextInt();
+        }
+        return selection;
     }
 
     public void performDeposit() {
@@ -65,7 +107,7 @@ public class MainMenu {
             System.out.print("How much would you like to deposit: ");
             depositAmount = keyboardInput.nextDouble();
         }
-        transactionHistory.deposit(depositAmount);
+        userAccount.deposit(depositAmount);
     }
     public void performWithdrawal() {
         double withdrawalAmount = -1;
@@ -73,10 +115,10 @@ public class MainMenu {
             System.out.print("How much would you like to withdraw: ");
             withdrawalAmount = keyboardInput.nextDouble();
         }
-        transactionHistory.withdrawal(withdrawalAmount);
+        userAccount.withdraw(withdrawalAmount);
     }
     public void viewTransactionHistory() {
-        double[] transactions = transactionHistory.returnTransactionHistory();
+        ArrayList<Double> transactions = userAccount.returnTransactionHistory();
         for(double transaction : transactions) {
             System.out.println(transaction);
         }
@@ -85,14 +127,25 @@ public class MainMenu {
         System.out.println("Created a new account with a starting balance of $0.00!");
         customer.createBankAccount();
     }
-    public void run() {
-        int selection = -1;
-        while(selection != EXIT_SELECTION) {
-            displayOptions();
-            selection = getUserSelection(MAX_SELECTION);
-            processInput(selection);
+    public void switchToAnotherAccount() {
+        if(customer == null) {
+            System.out.println("Unable to switch accounts. No customer found.");
+            return;
         }
+        ArrayList<BankAccount> accounts = customer.getAccounts();
+        if(accounts.size() == 0) {
+            System.out.println("Unable to switch accounts. No accounts found.");
+            return;
+        }
+        System.out.println("Pick an account to switch to: ");
+        for(int i = 0; i < accounts.size(); i++) {
+            System.out.println((i + 1) + ". Account Balance: " + accounts.get(i).getBalance());
+        }
+        int selection = getUserSelection(accounts.size());
+        userAccount = accounts.get(selection - 1);
+        introMenu = true;
     }
+
 
     public static void main(String[] args) {
         MainMenu bankApp = new MainMenu();
