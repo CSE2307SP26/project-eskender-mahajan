@@ -54,6 +54,7 @@ public class MainMenu {
         System.out.print("Enter your name: ");
         String name = keyboardInput.next();
         customer = new Customer(name);
+        
         userAccount = customer.getAccounts().get(0);
         introMenu = true;
     }
