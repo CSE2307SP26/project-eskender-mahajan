@@ -12,6 +12,7 @@ public class MainMenu {
     private Customer customer;
     private Scanner keyboardInput;
     private boolean introMenu;
+    private boolean pinNumberMenu;
 
     public MainMenu() {
         
@@ -19,6 +20,7 @@ public class MainMenu {
         this.userAccount = null;
         this.customer = null; 
         this.introMenu = false;
+        this.pinNumberMenu = false;
     }
     public void run() {
         while(true){
@@ -26,6 +28,9 @@ public class MainMenu {
                 displayInitialOptions();
                 int selection = getUserSelection(2);
                 processInitialInput(selection);
+            }
+            else if(!pinNumberMenu){
+                displayPinNumberInput(customer);
             }
             else {
                 displayAccountOptions();
@@ -53,11 +58,24 @@ public class MainMenu {
     public void createAccount() {
         System.out.print("Enter your name: ");
         String name = keyboardInput.next();
-        customer = new Customer(name);
+        System.out.print("Create a 4 digit Pin Number: ");
+        int pinNumber = keyboardInput.nextInt();
+        customer = new Customer(name,pinNumber);
         userAccount = customer.getAccounts().get(0);
         introMenu = true;
     }
-
+    public void displayPinNumberInput(Customer customer){
+        System.out.print("Enter a 4 digit Pin Number: ");
+        int pinNumber = keyboardInput.nextInt();
+        while(!pinNumberMenu){
+        if(pinNumber == customer.getPinNumber()){
+            pinNumberMenu = true;
+        }else{
+            System.out.print("Enter a 4 digit Pin Number: ");
+            pinNumber = keyboardInput.nextInt();
+        }
+        }
+    }
     public void displayAccountOptions() {
         System.out.println("Welcome to your account, " + customer.getName() + "!");
         
