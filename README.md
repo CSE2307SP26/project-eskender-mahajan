@@ -25,9 +25,10 @@
 ## Is there anything that you implemented but doesn't currently work?
 I think everything should work
 ## What commands are needed to compile and run your code from the command line?
-#!/bin/bash
+'''#!/bin/bash
 javac -d out src/main/*.java src/main/menus/*.java
-java -cp out main.menus.MainMenu
+java -cp out main.menus.MainMenu 
+'''
 # project26
 
 # project26
