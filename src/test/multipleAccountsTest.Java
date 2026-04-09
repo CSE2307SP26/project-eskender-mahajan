@@ -8,13 +8,13 @@ class MultipleAccountsTest{
     //New customer should have 1 bank account
     @Test
 	void newCustomerOpen () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
 		assertEquals(1, newCustomer.getAccounts().size());
 	}
     //A customer creates an additional bank account
     @Test
 	 void oneAccount () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
         newCustomer.createBankAccount();
 		assertEquals(2, newCustomer.getAccounts().size());
 	}

@@ -10,14 +10,14 @@ public class TransactionHistoryTest{
     //New customer should have no transaction history
     @Test
 	void emptyAccount () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
 		BankAccount account = newCustomer.getAccounts().get(0);
 		assertEquals(0, account.returnTransactionHistory().size());
 	}
     //Deposit into an Account should have a transaction history
     @Test
 	 void depositAccount () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
 		BankAccount account = newCustomer.getAccounts().get(0);
 		account.deposit(200);
 		assertEquals(200, account.returnTransactionHistory().get(0),0.001);
@@ -25,7 +25,7 @@ public class TransactionHistoryTest{
     //Withdrawal from an Account should have a transaction history
     @Test
 	void withdrawalAccount () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
 		BankAccount account = newCustomer.getAccounts().get(0);
 		account.deposit(200);
 		account.withdraw(100);
@@ -35,7 +35,7 @@ public class TransactionHistoryTest{
 	//Illegal Withdrawls
 	@Test
 	void illegalWithdrawals () {
-		Customer newCustomer = new Customer("Mohini");
+		Customer newCustomer = new Customer("Mohini",1111);
 		BankAccount account = newCustomer.getAccounts().get(0);
 		account.deposit(200);
 		assertThrows(IllegalArgumentException.class, () -> {
