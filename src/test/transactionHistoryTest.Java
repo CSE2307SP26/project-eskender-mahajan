@@ -1,3 +1,6 @@
+package test;
+import main.BankAccount;
+import main.TransactionHistory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 class transactionHistoryTest{

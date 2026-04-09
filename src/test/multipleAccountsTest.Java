@@ -1,3 +1,5 @@
+package test;
+import main.Customer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 class multipleAccountsTest{
