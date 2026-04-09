@@ -25,7 +25,7 @@ public class CheckingAccount extends BankAccount {
         super.deposit(-amount);
     }
 
-    // apply interest (if required)
+    // apply interest 
     public void applyInterest() {
         double interest = getBalance() * interestRate;
         deposit(interest);
