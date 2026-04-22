@@ -22,7 +22,7 @@ public class CheckingAccount extends BankAccount {
             throw new IllegalArgumentException("Withdrawal amount exceeds overdraft limit.");
         }
 
-        super.deposit(-amount);
+        this.balance -= amount;
     }
 
     // apply interest 
