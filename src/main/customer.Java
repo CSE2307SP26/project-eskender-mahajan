@@ -7,7 +7,7 @@ public class Customer{
     public Customer(String name){
         accounts = new ArrayList<>();
         this.name = name;
-        accounts.add(new BankAccount(0.0));
+       /// accounts.add(new BankAccount(0.0));
     }
     public String getName(){
         return name;
