@@ -1,42 +1,51 @@
 package test;
 import main.BankAccount;
+import main.Customer;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
     @Test
     void startingBalance() {
-        BankAccount account = new BankAccount(200);
-        assertEquals(200, account.getBalance());
+        Customer customer = new Customer("Beamlak",1111);
+        BankAccount account = customer.getAccounts().get(0);
+        assertEquals(0.0, account.getBalance(),0.001);
     }
 
     @Test
     void withdrawValidAmount() {
-        BankAccount account = new BankAccount(200);
+        Customer customer = new Customer("Mohini",1111);
+        BankAccount account = customer.getAccounts().get(0);
+        account.deposit(200);
         account.withdraw(50);
-        assertEquals(150, account.getBalance());
+        assertEquals(150, account.getBalance(),0.001);
     }
 
     @Test
     void multipleWithdrawals() {
-        BankAccount account = new BankAccount(200);
+        Customer customer = new Customer("Beamlak",1111);
+        BankAccount account = customer.getAccounts().get(0);
+        account.deposit(200);
         account.withdraw(40);
         account.withdraw(50);
-        assertEquals(110, account.getBalance());
+        assertEquals(110, account.getBalance(),0.001);
     }
 
     @Test
     void withdrawTooMuch() {
-        BankAccount account = new BankAccount(300);
+        Customer customer = new Customer("Mohini",1111);
+        BankAccount account = customer.getAccounts().get(0);
+        account.deposit(50);
         assertThrows(IllegalArgumentException.class, () -> {
-            account.withdraw(400);
+            account.withdraw(100);
         });
     }
 
     @Test
     void invalidWithdrawalAmount() {
-        BankAccount account = new BankAccount(200);
-
+        Customer customer = new Customer("Beamlak",1111);
+        BankAccount account = customer.getAccounts().get(0);
         assertThrows(IllegalArgumentException.class, () -> {
             account.withdraw(-50);
         });

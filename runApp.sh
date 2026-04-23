@@ -1,3 +1,3 @@
 #!/bin/bash
-javac -d out src/main/*.java
-java -cp out main.MainMenu 
+javac -d out src/main/*.java src/main/menus/*.java
+java -cp out main.menus.MainMenu 

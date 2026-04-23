@@ -2,28 +2,23 @@ package test;
 import main.Customer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-class multipleAccountsTest{
+class MultipleAccountsTest{
     //A bank customer should be able to create an additional account with the bank.
+        
+    //New customer should have 1 bank account
        
     //New customer should have no bank account
     @Test
 	void newCustomerOpen () {
-		Customer newCustomer = new Customer();
-		assertEquals(0, newCustomer.getAccounts().size());
-	}
-    //A customer creates 1 bank account
-    @Test
-	 void oneAccount () {
-		Customer newCustomer = new Customer();
-        newCustomer.createBankAccount();
+		Customer newCustomer = new Customer("Mohini",1111);
 		assertEquals(1, newCustomer.getAccounts().size());
 	}
-    //A customer creates 2 bank accounts
+    //A customer creates an additional bank account
     @Test
-	void twoAccounts () {
-		Customer newCustomer = new Customer();
-        newCustomer.createBankAccount();
+	 void oneAccount () {
+		Customer newCustomer = new Customer("Mohini",1111);
         newCustomer.createBankAccount();
 		assertEquals(2, newCustomer.getAccounts().size());
 	}
+
 }

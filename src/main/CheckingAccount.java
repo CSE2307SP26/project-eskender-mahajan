@@ -1,6 +1,7 @@
 package main;
 
 public class CheckingAccount extends BankAccount {
+    
     private double overdraftLimit;
     private double interestRate;
 
