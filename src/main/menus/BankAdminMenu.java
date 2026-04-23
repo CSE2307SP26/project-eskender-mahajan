@@ -9,8 +9,8 @@ import main.Transfer;
 
 public class BankAdminMenu {
 
-    private static final int EXIT_SELECTION = 4;
-    private static final int MAX_SELECTION = 4;
+    private static final int EXIT_SELECTION = 5;
+    private static final int MAX_SELECTION = 5;
 
     private BankAdmin bankadmin;
     private Scanner keyboardInput;
@@ -113,7 +113,8 @@ public class BankAdminMenu {
         System.out.println("1. View all customers");
         System.out.println("2. Delete a customer");
         System.out.println("3. Review pending transfers");
-        System.out.println("4. Exit the app");
+        System.out.println("4. Review mortgage applications");
+        System.out.println("5. Exit the app");
 
     }
 
@@ -127,8 +128,11 @@ public class BankAdminMenu {
                 break;
             case 3:
                 reviewPendingTransfers();
-                break; // NEW
+                break;
             case 4:
+                reviewMortgageApplications();
+                break;
+            case 5:
                 System.out.println("Thank you!");
                 break;
         }
@@ -191,4 +195,21 @@ public class BankAdminMenu {
         }
     }
 
+    public void reviewMortgageApplications() {
+        if (bankadmin.getMortgageApplications().isEmpty()) {
+            System.out.println("No mortgage applications.");
+            return;
+        }
+        bankadmin.viewMortgageApplications();
+        System.out.print("Enter the number of the application to deny (0 to cancel): ");
+        int selection = keyboardInput.nextInt();
+        if (selection == 0)
+            return;
+        bankadmin.denyMortgageApplication(selection - 1);
+        System.out.println("Mortgage application denied.");
+    }
+
+    public BankAdmin getBankAdmin() {
+        return bankadmin;
+    }
 }

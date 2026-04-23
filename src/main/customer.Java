@@ -43,8 +43,7 @@ public class Customer{
             from.withdraw(amount);
             to.deposit(amount);
             return null;
-        }
-}
+        }}
     public boolean verifyIdentity(String question, String answer) {
     switch (question) {
         case "1":
@@ -64,15 +63,6 @@ public class Customer{
 public void resetPin(int newPin) {
     this.pinNumber = newPin;
 }
- 
-    public void createBankAccount(){
-        accounts.add(new BankAccount(0.0));
-    }
-
-    /// mortgage addtions under here 
-       public ArrayList<BankAccount> getAccounts(){
-        return accounts;
-    }
 
     public void applyForMortgage(double amount, int years){ 
         MortgageApplication application = new MortgageApplication(this, amount, years); 

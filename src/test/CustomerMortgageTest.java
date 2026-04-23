@@ -9,14 +9,14 @@ public class CustomerMortgageTest {
 
     @Test
     void newCustomerStartsWithNoMortgageApplications() {
-        Customer customer = new Customer("Bob");
+        Customer customer = new Customer("Bob",1111);
 
         assertEquals(0, customer.getMortgageApplications().size());
     }
 
     @Test
     void applyingForMortgageAddsApplication() {
-        Customer customer = new Customer("Bob");
+        Customer customer = new Customer("Bob",1111);
 
         customer.applyForMortgage(300000, 15);
 
@@ -25,7 +25,7 @@ public class CustomerMortgageTest {
 
     @Test
     void applyingForMortgageCreatesCorrectApplication() {
-        Customer customer = new Customer("Bob");
+        Customer customer = new Customer("Bob",1111);
 
         customer.applyForMortgage(300000, 15);
         MortgageApplication application = customer.getMortgageApplications().get(0);
