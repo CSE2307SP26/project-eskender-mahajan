@@ -9,7 +9,7 @@
 
 1. A bank customer should be able to deposit into an existing account. (Shook)
 2. A bank customer should be able to withdraw from an account. (Beamlak)
-3. A bank customer should be able to check their account balance. (Beamlack)
+3. A bank customer should be able to check their account balance. (Beamlak)
 4. A bank customer should be able to view their transaction history for an account. (Mohini)
 5. A bank customer should be able to create an additional account with the bank. (Mohini)
 6. A customer should be able to log in using a pin number. (Mohini)

@@ -125,6 +125,25 @@ public class CustomerMenu {
         logInMenu = true;
     
     }
+    public void resetPin() {
+    System.out.println("Answer a security question to reset your PIN.");
+    System.out.println("1. What was the amount of your first transaction?");
+    System.out.println("2. How many accounts do you have?");
+    System.out.println("3. What is your current savings balance?");
+    
+    int question = getUserSelection(3);
+    System.out.print("Your answer: ");
+    String answer = keyboardInput.next();
+    
+    if (customer.verifyIdentity(String.valueOf(question), answer)) {
+        System.out.print("Correct! Enter your new PIN: ");
+        int newPin = keyboardInput.nextInt();
+        customer.resetPin(newPin);
+        System.out.println("PIN successfully reset.");
+    } else {
+        System.out.println("Incorrect answer. PIN reset failed.");
+    }
+}
     public void displayWhichAccount() {
         System.out.println("Welcome to your account, " + customer.getName() + "!");
         System.out.println("What would you like to do?");
@@ -132,6 +151,7 @@ public class CustomerMenu {
         System.out.println("2. Access checking account");
         System.out.println("3. Make another account");
         System.out.println("4. Switch accounts");
+        System.out.println("5. Reset Pin");
     }
     public void processWhichAccountInput(int selection) {
         switch (selection) {
@@ -150,6 +170,9 @@ public class CustomerMenu {
                 break;
             case 4:
                 switchToAnotherAccount();
+                break;
+            case 5:
+                resetPin();
                 break;
         }
     }

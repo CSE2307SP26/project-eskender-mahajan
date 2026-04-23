@@ -6,6 +6,8 @@ class MultipleAccountsTest{
     //A bank customer should be able to create an additional account with the bank.
         
     //New customer should have 1 bank account
+       
+    //New customer should have no bank account
     @Test
 	void newCustomerOpen () {
 		Customer newCustomer = new Customer("Mohini",1111);
