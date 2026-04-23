@@ -6,11 +6,12 @@ import java.util.Scanner;
 import main.BankAccount;
 import main.BankAdmin;
 import main.Customer;
+import main.Transfer;
 
 public class CustomerMenu {
 
-    private static final int EXIT_SELECTION = 4;
-	private static final int MAX_SELECTION = 4;
+    private static final int EXIT_SELECTION = 5;
+	private static final int MAX_SELECTION = 5;
 
 	private BankAccount userAccount;
     private BankAdmin bankadmin;
@@ -180,7 +181,8 @@ public class CustomerMenu {
         System.out.println("1. Make a deposit");
         System.out.println("2. Make a withdrawal");
         System.out.println("3. View transaction history");
-        System.out.println("4. Exit the app");
+        System.out.println("4. Transfer Funds");
+        System.out.println("5. Exit the app");
 
     }
     
@@ -195,8 +197,9 @@ public class CustomerMenu {
             case 3:
                 viewSavingsTransactionHistory();
                 break;
-            case 4:
-                System.out.println("Thank you!");
+            case 4: performTransfer(); 
+                break;     
+            case 5: System.out.println("Thank you!"); 
                 break;
         }
     }
@@ -229,7 +232,8 @@ public class CustomerMenu {
         System.out.println("1. Make a deposit");
         System.out.println("2. Make a withdrawal");
         System.out.println("3. View transaction history");
-        System.out.println("6. Exit the app");
+        System.out.println("4. Transfer Funds");
+        System.out.println("5. Exit the app");
 
     }
     public void processCheckingAccountInput(int selection) {
@@ -243,8 +247,9 @@ public class CustomerMenu {
             case 3:
                 viewCheckingTransactionHistory();
                 break;
-            case 4:
-                System.out.println("Thank you!");
+            case 4: performTransfer(); 
+                break;     
+            case 5: System.out.println("Thank you!"); 
                 break;
         }
     }
@@ -280,6 +285,36 @@ public class CustomerMenu {
         }
         return selection;
     }
+    public void performTransfer() {
+    ArrayList<BankAccount> accounts = customer.getAccounts();
+    
+    System.out.println("Transfer from: " + userAccount.getClass().getSimpleName() 
+                       + " (balance: $" + userAccount.getBalance() + ")");
+    System.out.println("Pick an account to transfer to:");
+    for (int i = 0; i < accounts.size(); i++) {
+        if (accounts.get(i) != userAccount) {
+            System.out.println((i + 1) + ". " + accounts.get(i).getClass().getSimpleName() 
+                               + " (balance: $" + accounts.get(i).getBalance() + ")");
+        }
+    }
+    int selection = getUserSelection(accounts.size());
+    BankAccount toAccount = accounts.get(selection - 1);
+    
+    System.out.print("How much would you like to transfer: ");
+    double amount = keyboardInput.nextDouble();
+    
+    System.out.print("Enter a memo: ");
+    String memo = keyboardInput.next();
+    
+    Transfer transfer = customer.requestTransfer(userAccount, toAccount, amount, memo);
+    
+    if (transfer == null) {
+        System.out.println("Transfer complete!");
+    } else {
+        bankadmin.receiveTransferRequest(transfer);
+        System.out.println("Transfer of $" + amount + " is pending admin approval.");
+    }
+}
 
     public static void main(String[] args) {
         MainMenu bankApp = new MainMenu();
