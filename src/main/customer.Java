@@ -24,4 +24,23 @@ public class Customer{
     public void createBankAccount(){
         accounts.add(new BankAccount(0.0));
     }
+    public boolean verifyIdentity(String question, String answer) {
+    switch (question) {
+        case "1":
+            // first transaction in savings account
+            ArrayList<Double> history = accounts.get(0).returnTransactionHistory();
+            if (history.isEmpty()) return false;
+            return String.valueOf(history.get(0)).equals(answer);
+        case "2":
+            return String.valueOf(accounts.size()).equals(answer);
+        case "3":
+            return String.valueOf(accounts.get(0).getBalance()).equals(answer);
+        default:
+            return false;
+    }
+}
+
+public void resetPin(int newPin) {
+    this.pinNumber = newPin;
+}
 }
