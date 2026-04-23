@@ -7,6 +7,7 @@ public class BankAdmin {
     private String name;
     private ArrayList<Customer> bankCustomers;
     private int pinNumber;
+    private ArrayList<Transfer> pendingTransfers;
     private ArrayList<MortgageApplication> mortgageApplications;
     
     ///constructor
@@ -14,6 +15,7 @@ public class BankAdmin {
         this.name = name;
         this.pinNumber = pinNumber;
         bankCustomers = new ArrayList<>();
+        this.pendingTransfers = new ArrayList<>();
         mortgageApplications = new ArrayList<>();
     }
     ///getters and setters
@@ -60,11 +62,42 @@ public class BankAdmin {
     }
 
     public void deleteCustomerAccount(Customer customer){
+        for(int i = 0;i<bankCustomers.size();i++){
+            if(bankCustomers.get(i)==customer){
+                    bankCustomers.remove(i);
+                    return;
+            }
         for(int i = 0; i < bankCustomers.size(); i++){
             if(bankCustomers.get(i) == customer){
                 bankCustomers.remove(i);
             }
         }
+
+    public void receiveTransferRequest(Transfer transfer) {
+        pendingTransfers.add(transfer);
+    }
+
+    public ArrayList<Transfer> getPendingTransfers() {
+        return pendingTransfers;
+    }
+
+    public void approveTransfer(Transfer transfer) {
+        if (!pendingTransfers.contains(transfer)) {
+            throw new IllegalArgumentException("Transfer not found in pending list.");
+        }
+        transfer.getFrom().withdraw(transfer.getAmount());
+        transfer.getTo().deposit(transfer.getAmount());
+        transfer.setStatus("APPROVED");
+        pendingTransfers.remove(transfer);
+    }
+
+    public void denyTransfer(Transfer transfer) {
+        if (!pendingTransfers.contains(transfer)) {
+            throw new IllegalArgumentException("Transfer not found in pending list.");
+        }
+        transfer.setStatus("DENIED");
+        pendingTransfers.remove(transfer);
+    }
     }
 /// mortgage application methods
     public void addMortgageApplication(MortgageApplication application){

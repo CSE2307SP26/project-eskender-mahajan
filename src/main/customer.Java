@@ -6,6 +6,7 @@ public class Customer{
     private ArrayList<MortgageApplication> mortgageApplications; 
     private String name;
     private int pinNumber;
+    private static final double LARGE_TRANSFER_THRESHOLD = 10000.0;
 
     public Customer(String name,int pinNumber){
         accounts = new ArrayList<>();
@@ -28,6 +29,22 @@ public class Customer{
     public void createBankAccount(){
         accounts.add(new BankAccount(0.0));
     }
+    public Transfer requestTransfer(BankAccount from, BankAccount to, double amount, String memo) {
+        if (!accounts.contains(from) || !accounts.contains(to)) {
+            throw new IllegalArgumentException("Both accounts must belong to this customer."); 
+        }
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Transfer amount must be positive.");
+        }
+
+        if (amount > LARGE_TRANSFER_THRESHOLD) {
+            return new Transfer(this, from, to, amount, memo);
+        } else {
+            from.withdraw(amount);
+            to.deposit(amount);
+            return null;
+        }
+}
     public boolean verifyIdentity(String question, String answer) {
     switch (question) {
         case "1":
