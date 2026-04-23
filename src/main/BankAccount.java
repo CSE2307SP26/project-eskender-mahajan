@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 
 public class BankAccount {
-    private double balance;
+    protected double balance;
     private ArrayList<Double> transactionHistory;
     
 

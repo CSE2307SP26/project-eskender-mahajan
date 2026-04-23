@@ -1,6 +1,9 @@
 package test;
 import main.BankAccount;
+import main.CheckingAccount;
 import main.Customer;
+import main.SavingsAccount;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -54,4 +57,53 @@ public class BankAccountTest {
             account.withdraw(0);
         });
     }
+
+    ///New test deposit 
+    @Test 
+    void depositValidAmount(){
+        BankAccount account = new BankAccount(100); 
+        account.deposit(50);
+        assertEquals(150, account.getBalance());
+    }
+
+    @Test
+    void invalidDepositAmount(){
+        BankAccount account = new BankAccount(100); 
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(0);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(-10);
+        });
+    }
+    @Test
+void checkingAccountAllowsOverdraft() {
+    CheckingAccount account = new CheckingAccount(100.0, 500.0, 0.01);
+    account.withdraw(500.0);
+    assertEquals(-400.0, account.getBalance(), 0.001);
+}
+
+@Test
+void checkingAccountExceedsOverdraftLimit() {
+    CheckingAccount account = new CheckingAccount(100.0, 500.0, 0.01);
+    assertThrows(IllegalArgumentException.class, () -> {
+        account.withdraw(700.0);
+    });
+}
+
+@Test
+void savingsAccountAppliesInterest() {
+    SavingsAccount account = new SavingsAccount(100.0, 0.1);
+    account.applyInterest();
+    assertEquals(110.0, account.getBalance(), 0.001);
+}
+
+@Test
+void checkingAccountAppliesInterest() {
+    CheckingAccount account = new CheckingAccount(100.0, 500.0, 0.05);
+    account.applyInterest();
+    assertEquals(105.0, account.getBalance(), 0.001);
+}
 }

@@ -19,21 +19,16 @@ public class MainMenu {
     public MainMenu() {
         
         this.keyboardInput = new Scanner(System.in);
-        this.bankadmin = new BankAdmin("Name",1111);
+        this.bankadmin = null;
         this.chooseUser = false;
         this.selection = 0;
     }
     public void run() {
         boolean isAppRunning = true;
-        while(isAppRunning){
-            if(!chooseUser){
-                displayChooseUser();
-                int selection = getUserSelection(2);
-                processChooseUserInput(selection);
-            }
-            else {
-                chooseUser = false;
-        }
+        while (isAppRunning) {
+        displayChooseUser();
+        int selection = getUserSelection(2);
+        processChooseUserInput(selection);
     }
 }
     public void displayChooseUser() {
@@ -47,8 +42,13 @@ public class MainMenu {
             case 1:
                 BankAdminMenu bankadminMenu = new BankAdminMenu(keyboardInput,bankadmin);
                 bankadminMenu.run();
+                this.bankadmin = bankadminMenu.getBankAdmin();
                 break;
             case 2:
+                if (bankadmin == null) {
+                System.out.println("No admin account exists yet. Please create an admin account first.");
+                break;
+                }
                 CustomerMenu customerMenu = new CustomerMenu(keyboardInput,bankadmin);
                 customerMenu.run();
                 break;
