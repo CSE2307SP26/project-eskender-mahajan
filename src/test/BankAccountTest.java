@@ -54,4 +54,25 @@ public class BankAccountTest {
             account.withdraw(0);
         });
     }
+
+    ///New test deposit 
+    @Test 
+    void depositValidAmount(){
+        BankAccount account = new BankAccount(100); 
+        account.deposit(50);
+        assertEquals(150, account.getBalance());
+    }
+
+    @Test
+    void invalidDepositAmount(){
+        BankAccount account = new BankAccount(100); 
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(0);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(-10);
+        });
+    }
 }
