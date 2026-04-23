@@ -27,10 +27,10 @@ public class BankAdminTest {
     }
     @Test
     void adminCanDeleteCustomer() {
-    BankAdmin admin = new BankAdmin("Admin", 9999);
-    Customer customer = new Customer("Alice", 1111);
-    admin.addCustomer(customer);
-    admin.deleteCustomerAccount(customer);
-    assertEquals(0, admin.getCustomers().size());
+        BankAdmin admin = new BankAdmin("Admin", 9999);
+        Customer customer = new Customer("Alice", 1111);
+        admin.addCustomer(customer);
+        admin.deleteCustomerAccount(customer);
+        assertEquals(0, admin.getCustomers().size());
 }
 }
